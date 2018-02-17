@@ -1,0 +1,41 @@
+{
+  "development": {
+    "dialect": "postgres",
+    "host": "ec2-107-22-241-243.compute-1.amazonaws.com",
+    "database": "d11tpf2l2r8sh0",
+    "username": "lgciftqknflyvm",
+    "password":
+      "2938ac2ddc4076344668397351470a4e3666ccaef448f5b31841a982ad794ff9",
+    "operatorsAliases": false,
+    "dialectOptions": {
+      "ssl": true
+    },
+    "ssl": true
+  },
+  "test": {
+    "dialect": "postgres",
+    "host": "ec2-107-22-241-243.compute-1.amazonaws.com",
+    "database": "d11tpf2l2r8sh0",
+    "username": "lgciftqknflyvm",
+    "password":
+      "2938ac2ddc4076344668397351470a4e3666ccaef448f5b31841a982ad794ff9",
+    "operatorsAliases": false,
+    "dialectOptions": {
+      "ssl": true
+    },
+    "ssl": true
+  },
+  "production": {
+    "dialect": "postgres",
+    "host": "ec2-107-22-241-243.compute-1.amazonaws.com",
+    "database": "d11tpf2l2r8sh0",
+    "username": "lgciftqknflyvm",
+    "password":
+      "2938ac2ddc4076344668397351470a4e3666ccaef448f5b31841a982ad794ff9",
+    "operatorsAliases": false,
+    "dialectOptions": {
+      "ssl": true
+    },
+    "ssl": true
+  }
+}

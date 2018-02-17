@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import { Link, Route } from 'react-router-dom';
-import axios from 'axios';
+import React, { Component } from "react";
+import { Link, Route } from "react-router-dom";
+import axios from "axios";
 
-import PostCard from './PostCard';
+import PostCard from "./PostCard";
 
 class WelcomePage extends Component {
   // constructor() {
@@ -11,7 +11,7 @@ class WelcomePage extends Component {
 
   componentDidMount() {
     axios
-      .get('/api/posts')
+      .get("/api/posts")
       .then(({ data }) => {
         console.log(data);
       })
@@ -32,3 +32,4 @@ class WelcomePage extends Component {
 }
 
 export default WelcomePage;
+
