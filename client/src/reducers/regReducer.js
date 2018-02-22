@@ -1,6 +1,6 @@
-import types from '../constants/actionTypes';
+import types from "../constants/actionTypes";
 
-const regReducer = (state = initialState, action) => {
+const regReducer = (state = {}, action) => {
   switch (action.type) {
     case types.REGISTER_REQUEST:
       return {

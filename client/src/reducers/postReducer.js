@@ -1,14 +1,15 @@
+import types from "../constants/actionTypes";
+
 const initialState = {
-  data: {},
+  posts: [],
   isLoading: false,
-  errors: '',
-  message: '',
+  errors: "",
 };
 
 const postReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'ADD_NEW_POST':
-      return state;
+    case types.GET_POSTS:
+      return { ...state, posts: action.posts };
     default:
       return state;
   }

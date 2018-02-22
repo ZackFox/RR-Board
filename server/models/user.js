@@ -41,14 +41,16 @@ module.exports = (sequelize, DataTypes) => {
       });
   });
 
-  // validate password method
+  User.prototype.checkPassword = (password, hash) => {
+    return bcrypt.compareSync(password, hash);
+  };
 
   User.associate = function(models) {
     User.belongsTo(models.Role, {
       as: "role",
     });
     User.hasMany(models.Post, {
-      as: "Posts",
+      as: "posts",
       foreignKey: "userId",
     });
   };

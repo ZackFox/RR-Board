@@ -1,13 +1,7 @@
-import React, { Component } from 'react';
-import { Link, Route } from 'react-router-dom';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 class PostCard extends Component {
-  // constructor() {
-  //   super();
-  // }
-
-  componentDidMount() {}
-
   render() {
     return (
       <li className="bulletin" data-id="1">
@@ -17,19 +11,14 @@ class PostCard extends Component {
             <span className="">1 час назад</span>
           </Link>
           <Link to="/post">
-            <h3>Куплю терминатора(срочно)</h3>
+            <h3>{this.props.title}</h3>
           </Link>
         </div>
         <div className="bull-thumb-small">
           <img src="" alt="" />
         </div>
         <div className="bulletin-description">
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia
-            placeat, dignissimos dicta perspiciatis enim quam distinctio
-            praesentium expedita facere error ullam aspernatur quaerat,
-            molestiae, maiores rem reprehenderit harum neque
-          </p>
+          <p>{this.props.text}</p>
         </div>
 
         <div className="bull-tags">

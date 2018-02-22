@@ -1,31 +1,45 @@
-import React, { Component } from 'react';
-import { Switch, Route } from 'react-router-dom';
-// import axios from 'axios';
+import React, { Component } from "react";
+import { Switch, Route, withRouter } from "react-router-dom";
+import cookies from "react-cookies";
+import { connect } from "react-redux";
 
-import Header from './components/Header';
-import WelcomePage from './components/WelcomePage';
-import SignUpPage from './components/SignUpPage';
-import PostPage from './components/PostPage';
-import UserProfile from './components/UserProfile';
+import { getUser } from "./actions/authActions";
+import { getPosts } from "./actions/postActions";
+
+import Header from "./components/Header";
+import IndexPage from "./components/IndexPage";
+import SignUpPage from "./components/SignUpPage";
+import PostPage from "./components/PostPage";
+import UserProfile from "./components/UserProfile";
+import Loader from "./components/Loader";
 
 class App extends Component {
-  constructor() {
-    super();
+  componentDidMount() {
+    this.props.getPosts();
+    if (cookies.load("token")) {
+      this.props.getUser();
+    }
   }
 
   render() {
-    return (
+    return !this.props.isLoading ? (
       <div className="App">
         <Header />
         <Switch>
-          <Route path="/" exact component={WelcomePage} />
+          <Route path="/" exact component={IndexPage} />
           <Route path="/signup" component={SignUpPage} />
-          <Route path="/user" component={PostPage} />
-          <Route path="/post" component={UserProfile} />
+          <Route path="/post/:id" component={PostPage} />
+          <Route path="/user/:id" component={UserProfile} />
         </Switch>
       </div>
+    ) : (
+      <Loader />
     );
   }
 }
 
-export default App;
+const mapStateToProps = state => ({
+  isLoading: state.authReducer.isLoading,
+});
+
+export default withRouter(connect(mapStateToProps, { getUser, getPosts })(App));

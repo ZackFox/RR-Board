@@ -1,24 +1,39 @@
-import types from '../constants/actionTypes';
+import types from "../constants/actionTypes";
 
-let user = JSON.parse(localStorage.getItem('user'));
-const initialState = user ? { loggedIn: true, user } : {};
+const initialState = {
+  user: {},
+  isLoading: false,
+  authenticated: false,
+  loginErrors: "",
+};
 
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
-    case types.LOGIN_REQUEST:
+    case types.START_AUTHENTICATION:
       return {
-        loggingIn: true,
-        user: action.user,
+        ...state,
+        isLoading: true,
+      };
+    case types.STOP_AUTHENTICATION:
+      return {
+        ...state,
+        isLoading: false,
       };
     case types.LOGIN_SUCCESS:
       return {
-        loggedIn: true,
+        ...state,
+        authenticated: true,
         user: action.user,
+        loginErrors: "",
       };
     case types.LOGIN_FAILURE:
-      return {};
+      return { ...state, loginErrors: action.errors };
     case types.LOGOUT:
-      return {};
+      return {
+        ...state,
+        authenticated: false,
+        user: {},
+      };
     default:
       return state;
   }

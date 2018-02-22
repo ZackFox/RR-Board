@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Post.associate = function(models) {
     Post.belongsTo(models.User, {
-      as: "User",
+      as: "user",
       foreingKey: "userId",
     });
   };
