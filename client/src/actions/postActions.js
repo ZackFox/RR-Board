@@ -3,17 +3,18 @@ import cookies from "react-cookies";
 import types from "../constants/actionTypes";
 
 export const getPosts = formData => dispatch => {
-  // dispatch({ type: types.REGISTER_REQUEST });
+  dispatch({ type: types.START_FETCHING_POSTS });
   axios
     .get("/api/v1/posts")
     .then(({ data }) => {
       console.log(data);
       const { posts } = data;
       dispatch({ type: types.GET_POSTS, posts });
+      dispatch({ type: types.STOP_FETCHING_POSTS });
     })
     .catch(err => {
       console.log(err);
-      dispatch({ type: types.REGISTER_FAILURE });
+      // dispatch({ type: types.REGISTER_FAILURE });
     });
 };
 

@@ -9,12 +9,12 @@ const initialState = {
 
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
-    case types.START_AUTHENTICATION:
+    case types.START_FETCHING_USER:
       return {
         ...state,
         isLoading: true,
       };
-    case types.STOP_AUTHENTICATION:
+    case types.STOP_FETCHING_USER:
       return {
         ...state,
         isLoading: false,

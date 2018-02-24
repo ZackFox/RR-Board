@@ -36,7 +36,7 @@ export const signIn = (email, password) => dispatch => {
 };
 
 export const getUser = () => dispatch => {
-  dispatch({ type: types.START_AUTHENTICATION });
+  dispatch({ type: types.START_FETCHING_USER });
   axios
     .get("/api/v1/user", {
       headers: { Authorization: `Bearer ${cookies.load("token")}` },
@@ -44,11 +44,11 @@ export const getUser = () => dispatch => {
     .then(({ data }) => {
       const { user } = data;
       dispatch({ type: types.LOGIN_SUCCESS, user });
-      dispatch({ type: types.STOP_AUTHENTICATION });
+      dispatch({ type: types.STOP_FETCHING_USER });
     })
     .catch(() => {
       cookies.remove("token");
-      // dispatch({ type: "UNAUTH_USER" });
+      dispatch({ type: types.STOP_FETCHING_USER });
     });
 };
 
