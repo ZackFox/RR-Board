@@ -6,8 +6,8 @@ import { connect } from "react-redux";
 import { getUser } from "./actions/authActions";
 import { getPosts } from "./actions/postActions";
 
-import Header from "./components/Header";
-import IndexPage from "./components/IndexPage";
+import Header from "./components/header/Header";
+import IndexPage from "./components/indexPage/IndexPage";
 import SignUpPage from "./components/SignUpPage";
 import PostPage from "./components/PostPage";
 import UserProfile from "./components/UserProfile";
@@ -15,14 +15,14 @@ import Loader from "./components/Loader";
 
 class App extends Component {
   componentDidMount() {
-    this.props.getPosts();
     if (cookies.load("token")) {
       this.props.getUser();
     }
+    this.props.getPosts();
   }
 
   render() {
-    return !this.props.isLoading ? (
+    return (
       <div className="App">
         <Header />
         <Switch>
@@ -32,14 +32,8 @@ class App extends Component {
           <Route path="/user/:id" component={UserProfile} />
         </Switch>
       </div>
-    ) : (
-      <Loader />
     );
   }
 }
 
-const mapStateToProps = state => ({
-  isLoading: state.authReducer.isLoading,
-});
-
-export default withRouter(connect(mapStateToProps, { getUser, getPosts })(App));
+export default withRouter(connect(null, { getUser, getPosts })(App));
