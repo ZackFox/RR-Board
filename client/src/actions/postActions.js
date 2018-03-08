@@ -1,41 +1,35 @@
 import axios from "axios";
-import cookies from "react-cookies";
+
 import types from "../constants/actionTypes";
 
-export const getPosts = formData => dispatch => {
+export const getPosts = () => dispatch => {
   dispatch({ type: types.START_FETCHING_POSTS });
   axios
     .get("/api/v1/posts")
     .then(({ data }) => {
-      console.log(data);
       const { posts } = data;
       dispatch({ type: types.GET_POSTS, posts });
       dispatch({ type: types.STOP_FETCHING_POSTS });
     })
     .catch(err => {
       console.log(err);
-      // dispatch({ type: types.REGISTER_FAILURE });
+      dispatch({ type: types.STOP_FETCHING_POSTS });
     });
 };
 
-// export const signIn = (email, password) => dispatch => {
-//   // dispatch({ type: types.START_AUTHENTICATION });
-//   axios
-//     .post("/api/v1/signin", { email, password })
-//     .then(({ data }) => {
-//       console.log(data);
-//       const { user, token } = data;
-//       cookies.save("token", token, { path: "/" });
-//       dispatch({ type: types.LOGIN_SUCCESS, user });
-//     })
-//     .catch(err => {
-//       const errors = err.response.data.message;
-//       dispatch({
-//         type: types.LOGIN_FAILURE,
-//         errors,
-//       });
-//     });
-// };
+export const getCurrentPost = id => dispatch => {
+  dispatch({ type: types.START_FETCHING_POSTS });
+  axios
+    .get(`/api/v1/post/${id}`, {})
+    .then(({ data }) => {
+      dispatch({ type: types.GET_CURRENT_POST, post: data.post });
+      dispatch({ type: types.STOP_FETCHING_POSTS });
+    })
+    .catch(err => {
+      const errors = err.response.data.message;
+      dispatch({ type: types.STOP_FETCHING_POSTS });
+    });
+};
 
 // export const getUser = () => dispatch => {
 //   dispatch({ type: types.START_AUTHENTICATION });

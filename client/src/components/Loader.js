@@ -1,10 +1,11 @@
 import React, { Component } from "react";
-// import PropTypes from "prop-types";
+import PropTypes from "prop-types";
+import loader from "./load.gif";
 
 export default () => {
   return (
     <div className="loader-container">
-      <span>"loading..."</span>
+      <img width="100" src={loader} />
     </div>
   );
 };

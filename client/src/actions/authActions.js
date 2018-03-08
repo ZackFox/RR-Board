@@ -53,5 +53,6 @@ export const getUser = () => dispatch => {
 };
 
 export const logOut = () => dispatch => {
+  cookies.remove("token");
   dispatch({ type: types.LOGOUT });
 };

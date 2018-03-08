@@ -2,7 +2,7 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface
-      .createTable("Posts", {
+      .createTable("post", {
         id: {
           allowNull: false,
           autoIncrement: true,
@@ -11,7 +11,7 @@ module.exports = {
         },
         userId: {
           references: {
-            model: "Users",
+            model: "user", // имя таблицы
             key: "id",
           },
           type: Sequelize.INTEGER,
@@ -25,7 +25,7 @@ module.exports = {
           type: Sequelize.STRING,
         },
         thumbnail: {
-          defaultValue: "post.jpg",
+          defaultValue: "/public/static/img/uploads/thumbnail.jpg",
           type: Sequelize.STRING,
         },
         createdAt: {
@@ -40,10 +40,10 @@ module.exports = {
         },
       })
       .then(() => {
-        queryInterface.addIndex("Posts", { fields: ["userId"] });
+        queryInterface.addIndex("post", { fields: ["userId"] });
       });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable("Posts");
+    return queryInterface.dropTable("post");
   },
 };

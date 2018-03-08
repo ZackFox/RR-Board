@@ -1,7 +1,16 @@
+html,
+body,
+#root,
+.app,
+.container {
+  height: 100%;
+}
+
 body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  background: #e8e8e8;
 }
 
 h2,
@@ -16,7 +25,6 @@ h6 {
 .board-header {
   background: #424242;
   color: #fff;
-  padding: 10px;
   margin-bottom: 20px;
 }
 
@@ -26,11 +34,61 @@ h6 {
   align-items: center;
 }
 
+/* .login-block .open {
+  display: block;
+} */
+
 .logo {
   color: #fff;
   text-decoration: none;
   font-size: 30px;
   font-weight: bold;
+}
+
+.user-block {
+  position: relative;
+}
+
+.signup-btn {
+  margin-right: 60px;
+}
+
+.login-btn,
+.menu-btn {
+  padding: 10px;
+}
+
+.loginMenu,
+.user-menu {
+  display: none;
+  position: absolute;
+  right: 0px;
+  top: 44px;
+  text-align: left;
+  background: #fff;
+  width: 320px;
+  color: #000;
+  padding: 20px;
+  box-shadow: 1px 2px 6px 0px #4a4a4a;
+}
+
+.loginMenu .messages {
+  margin: 0;
+  color: red;
+  text-align: left;
+}
+
+.login-btn span,
+.menu-btn span {
+  border-bottom: 1px solid #fff;
+}
+
+.login-btn:hover .loginMenu {
+  display: block;
+}
+
+.menu-btn:hover .user-menu {
+  display: block;
 }
 
 ul {
@@ -39,9 +97,42 @@ ul {
   margin: 0;
 }
 
-.bulletin {
+.post-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.post-item {
   display: block;
-  background: #e8e8e8;
+  width: 264px;
+  background: #f9f9f9;
   padding: 15px;
+  margin-bottom: 20px;
   box-shadow: 1px 2px 6px 0px #4a4a4a;
+}
+
+.post-top h3 {
+  font-size: 23px;
+}
+
+.post-page-thumb {
+  width: 300px;
+}
+
+.post-card-thumb img,
+.post-page-thumb img {
+  width: 100%;
+}
+
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.loader-container img {
+  width: 100px;
+  height: 100px;
 }

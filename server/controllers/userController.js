@@ -1,27 +1,39 @@
 const jwt = require("jsonwebtoken");
-const { User, Role } = require("../models");
+const models = require("../models");
+const { user, role, vote } = require("../models");
 
-const authController = {};
+const userController = {};
 
-authController.signUp = (req, res) => {
+userController.signUp = (req, res) => {
   const { username, email, password } = req.body;
-  User.create({
-    username,
-    email,
-    password,
-  })
+  user
+    .create({
+      username,
+      email,
+      password,
+    })
     .then(user => {
       res.json(user);
     })
     .catch(err => console.log(err));
 };
 
-authController.signIn = (req, res) => {
+userController.signIn = (req, res) => {
   const { email, password } = req.body;
-  User.findOne({
-    where: { email },
-    include: { model: Role, as: "role" },
-  })
+  user
+    .findOne({
+      where: { email },
+      attributes: [
+        "id",
+        "username",
+        "email",
+        "avatar",
+        "password",
+        [models.sequelize.col("name"), "role_name"],
+        "createdAt",
+      ],
+      include: { model: role, attributes: [] },
+    })
     .then(data => {
       if (!data) {
         return res
@@ -37,7 +49,7 @@ authController.signIn = (req, res) => {
         id: data.id,
         username: data.username,
         email: data.email,
-        role: data.role.name,
+        role_name: data.role_name,
       };
 
       const token = jwt.sign(user, "spiderman", { expiresIn: 60 * 60 });
@@ -55,7 +67,7 @@ authController.signIn = (req, res) => {
     });
 };
 
-authController.getUser = (req, res) => {
+userController.getCurrentUser = (req, res) => {
   const authHeader = req.headers.authorization;
   const token = authHeader ? authHeader.split(" ")[1] : null;
 
@@ -73,4 +85,31 @@ authController.getUser = (req, res) => {
   }
 };
 
-module.exports = authController;
+userController.getUser = (req, res) => {
+  const id = req.params.id;
+  user
+    .findOne({
+      where: { id },
+      attributes: [
+        "id",
+        "username",
+        "email",
+        "avatar",
+        "createdAt",
+        [models.sequelize.fn("AVG", models.sequelize.col("rate")), "rating"],
+      ],
+      include: [
+        { model: role, attributes: ["name"] },
+        { model: vote, attributes: [] },
+      ],
+      group: ["user.id", "role.id"],
+    })
+    .then(user => {
+      res.status(200).json({ user });
+    })
+    .catch(err => {
+      console.log(err);
+    });
+};
+
+module.exports = userController;

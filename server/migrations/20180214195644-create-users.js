@@ -2,7 +2,7 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface
-      .createTable("Users", {
+      .createTable("user", {
         id: {
           allowNull: false,
           autoIncrement: true,
@@ -23,12 +23,12 @@ module.exports = {
         },
         avatar: {
           type: Sequelize.STRING,
-          defaultValue: "avatar.jpg",
+          defaultValue: "/public/static/img/uploads/avatar.jpg",
         },
         roleId: {
           type: Sequelize.INTEGER,
           references: {
-            model: "Roles",
+            model: "role", // имя таблицы
             key: "id",
           },
           defaultValue: 1,
@@ -45,12 +45,12 @@ module.exports = {
         },
       })
       .then(() => {
-        queryInterface.addIndex("Users", {
+        queryInterface.addIndex("user", {
           fields: ["username", "email"],
         });
       });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable("Users");
+    return queryInterface.dropTable("user");
   },
 };

@@ -1,11 +1,11 @@
 "use strict";
 module.exports = (sequelize, DataTypes) => {
   var Role = sequelize.define(
-    "Role",
+    "role",
     {
       name: DataTypes.STRING,
     },
-    { timestamps: false },
+    { timestamps: false, freezeTableName: true },
   );
   return Role;
 };

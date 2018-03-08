@@ -2,9 +2,7 @@ import React, { Component } from "react";
 import { Switch, Route, withRouter } from "react-router-dom";
 import cookies from "react-cookies";
 import { connect } from "react-redux";
-
 import { getUser } from "./actions/authActions";
-import { getPosts } from "./actions/postActions";
 
 import Header from "./components/header/Header";
 import IndexPage from "./components/indexPage/IndexPage";
@@ -18,12 +16,11 @@ class App extends Component {
     if (cookies.load("token")) {
       this.props.getUser();
     }
-    this.props.getPosts();
   }
 
   render() {
     return (
-      <div className="App">
+      <div className="app">
         <Header />
         <Switch>
           <Route path="/" exact component={IndexPage} />
@@ -36,4 +33,4 @@ class App extends Component {
   }
 }
 
-export default withRouter(connect(null, { getUser, getPosts })(App));
+export default withRouter(connect(null, { getUser })(App));

@@ -1,27 +1,27 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
+import api from "../../constants/api";
+
 class PostCard extends Component {
   render() {
+    const { post } = this.props;
     return (
-      <li className="bulletin" data-id="1">
-        <div className="bull-top">
+      <li className="post-item" data-id="1">
+        <div className="post-top">
           {/* <span>Джон Коннор</span> */}
-          <Link to="/user">
-            <span className="">1 час назад</span>
+          <Link to={`/user/${post.user.id}`}>
+            <span className="">{post.user.username} 1 час назад</span>
           </Link>
-          <Link to="/post">
-            <h3>{this.props.title}</h3>
+          <Link to={`/post/${post.id}`}>
+            <h3>{post.title}</h3>
           </Link>
         </div>
-        <div className="bull-thumb-small">
-          <img src="" alt="" />
-        </div>
-        <div className="bulletin-description">
-          <p>{this.props.text}</p>
+        <div className="post-card-thumb">
+          <img src={`${api}${post.thumbnail}`} />
         </div>
 
-        <div className="bull-tags">
+        <div className="post-tags">
           <a href="/">#куплю</a>
           <a href="/">#терминатор</a>
           <a href="/">#срочно</a>

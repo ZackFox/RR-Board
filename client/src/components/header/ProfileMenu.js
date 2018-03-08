@@ -5,15 +5,19 @@ import { connect } from "react-redux";
 import { logOut } from "../../actions/authActions";
 
 class ProfileMenu extends Component {
-  submitHandler = e => {
-    e.preventDefault();
-  };
+  logOutHandler = () => this.props.logOut();
 
   render() {
     const { user } = this.props;
     return (
-      <div className="">
-        <div>{user.username}</div>
+      <div className="user-block">
+        <div className="menu-btn">
+          <span>{user.username}</span>
+          <div className="user-menu">
+            <Link to={`/user/${user.id}`}>Открыть профиль</Link>
+            <button onClick={this.logOutHandler}>выйти</button>
+          </div>
+        </div>
       </div>
     );
   }

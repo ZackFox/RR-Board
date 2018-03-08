@@ -1,25 +1,47 @@
 const jwt = require("jsonwebtoken");
-const { User, Post } = require("../models");
+const { user, post } = require("../models");
 
 const postController = {};
 
-postController.getPosts = (req, res) => {
-  Post.all({
-    attributes: ["id", "thumbnail", "title", "text", "createdAt"],
-    include: {
-      model: User,
-      as: "user",
-      attributes: ["id", "username", "avatar"],
-    },
-  })
+postController.all = (req, res) => {
+  post
+    .all({
+      attributes: ["id", "thumbnail", "title", "text", "createdAt"],
+      include: {
+        model: user,
+        as: "user",
+        attributes: ["id", "username", "avatar"],
+      },
+    })
     .then(posts => {
       res.json({ posts });
     })
     .catch(err => console.log(err));
 };
 
-postController.getPost = (req, res) => {
-  Post.findOne()
+postController.getOne = (req, res) => {
+  const id = req.params.id;
+  post
+    .findOne({
+      where: { id },
+      attributes: ["id", "thumbnail", "title", "text", "createdAt"],
+      include: {
+        model: user,
+        as: "user",
+        attributes: ["id", "username", "avatar"],
+      },
+    })
+    .then(post => {
+      res.status(200).json({ post });
+    })
+    .catch(err => {
+      console.log(err);
+    });
+};
+
+postController.create = (req, res) => {
+  post
+    .findOne()
     .then(post => {
       res.status(200).json({ message: "success" });
     })
@@ -28,20 +50,10 @@ postController.getPost = (req, res) => {
     });
 };
 
-postController.createPost = (req, res) => {
+postController.delete = (req, res) => {
   // const { email, password } = req.body;
-  Post.findOne()
-    .then(post => {
-      res.status(200).json({ message: "success" });
-    })
-    .catch(err => {
-      console.log(err);
-    });
-};
-
-postController.deletePost = (req, res) => {
-  // const { email, password } = req.body;
-  Post.findOne()
+  post
+    .findOne()
     .then(post => {
       res.status(200).json({ message: "success" });
     })

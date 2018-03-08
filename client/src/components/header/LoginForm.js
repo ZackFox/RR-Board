@@ -10,27 +10,50 @@ class LoginForm extends Component {
     const email = this.emailInput.value;
     const password = this.passwordInput.value;
     this.props.signIn(email, password);
-    this.emailInput.value = "";
-    this.passwordInput.value = "";
   };
 
   render() {
-    // const { loginErrors } = this.props;
     return (
-      <div className="">
-        <form onSubmit={this.submitHandler}>
-          <p className="">{this.props.loginErrors}</p>
-          <input type="text" name="email" ref={el => (this.emailInput = el)} />
-          <input
-            type="password"
-            name="password"
-            ref={el => (this.passwordInput = el)}
-          />
-          <input type="submit" className="btn btn-success" value="Войти" />
-        </form>
-        <Link className="zz" to="/signup">
-          регистрация
-        </Link>
+      <div className="user-block">
+        {/* <span>/</span> */}
+        <div className="login-btn">
+          <span>Войти</span>
+          <div className="loginMenu">
+            <form onSubmit={this.submitHandler}>
+              <div className="form-group">
+                <p className="messages">{this.props.loginErrors}</p>
+              </div>
+              <div className="form-group">
+                <label htmlFor="emaillogin">Email :</label>
+                <input
+                  type="text"
+                  name="email"
+                  ref={el => (this.emailInput = el)}
+                  className="form-control"
+                  id="emaillogin"
+                  placeholder="Введите ваш email"
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="passwordlogin">Пароль :</label>
+                <input
+                  type="password"
+                  name="password"
+                  ref={el => (this.passwordInput = el)}
+                  className="form-control"
+                  id="passwordlogin"
+                  placeholder="Введите ваш пароль"
+                />
+              </div>
+
+              <input type="submit" className="btn btn-success" value="Войти" />
+              <Link className="signup-btn" to="/signup">
+                Зарегистрироваться
+              </Link>
+            </form>
+          </div>
+        </div>
       </div>
     );
   }

@@ -14,20 +14,19 @@ class Header extends Component {
         <div className="container">
           <div className="flex-container">
             <div className="">
-              <a href="/" className="logo">
+              <Link to="/" className="logo">
                 #Дощечка
-              </a>
+              </Link>
             </div>
             <SearchComponent />
-            <div className="user-block">
-              {isLoading ? ( // если есть токен - подтягивается user
-                "загрузка..." // крутится спиннер
-              ) : authenticated ? (
-                <ProfileMenu /> // если user загрузился - рендерится меню
-              ) : (
-                <LoginForm /> // без токена сразу рендерится форма
-              )}
-            </div>
+
+            {isLoading ? ( // если есть токен - подтягивается user
+              "авторизация..." // крутится спиннер
+            ) : authenticated ? (
+              <ProfileMenu /> // если user загрузился - рендерится меню
+            ) : (
+              <LoginForm /> // без токена сразу рендерится форма
+            )}
           </div>
         </div>
       </header>
